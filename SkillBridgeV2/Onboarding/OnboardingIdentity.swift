@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct OnboardingIdentity: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.3
     @State private var selectedSex: String = "Male"
     @State private var selectedRace: String = "Asian"
-    
+    @Environment(\.dismiss) private var dismiss  // Used to navigate back
     let sexes = ["Male", "Female"]
     let races = ["Asian", "Black", "White", "Hispanic", "Other"]
     
@@ -34,7 +34,7 @@ struct OnboardingIdentity: View {
             // Back Button
             HStack {
                 Button(action: {
-                    // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -114,11 +114,7 @@ struct OnboardingIdentity: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingHRLogistics()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -131,6 +127,7 @@ struct OnboardingIdentity: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 

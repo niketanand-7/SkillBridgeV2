@@ -1,19 +1,13 @@
-//
-//  OnboardingName.swift
-//  SkillBridgeV2
-//
-//  Created by Andrew Tran on 1/29/25.
-//
-
 import SwiftUI
 
 struct OnboardingName: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.1
     
+    @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
+
     var body: some View {
-        
         VStack(alignment: .leading) {
             // Progress Bar
             GeometryReader { geometry in
@@ -32,7 +26,7 @@ struct OnboardingName: View {
             // Back Button
             HStack {
                 Button(action: {
-                    
+                    dismiss()  // Navigate back to the previous screen
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -98,10 +92,9 @@ struct OnboardingName: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
-        .navigationBarBackButtonHidden(true)  // Hides the default back button to use the custom one
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
-
 
 #Preview {
     OnboardingName()

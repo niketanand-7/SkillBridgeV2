@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct OnboardingConsent: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 1.0
     @State private var isAgreed: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -31,6 +32,7 @@ struct OnboardingConsent: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -100,6 +102,7 @@ struct OnboardingConsent: View {
             .disabled(!isAgreed)  // Disable button if not agreed
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct OnboardingEmployment: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.8
     
     // Example data structure for employment entries
     @State private var employmentEntries: [EmploymentEntry] = Array(repeating: EmploymentEntry(company: "", reasonForLeaving: ""), count: 3)
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack(alignment: .leading) {
             // Progress Bar
@@ -32,6 +33,7 @@ struct OnboardingEmployment: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -92,11 +94,7 @@ struct OnboardingEmployment: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingEducation()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -109,6 +107,7 @@ struct OnboardingEmployment: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 

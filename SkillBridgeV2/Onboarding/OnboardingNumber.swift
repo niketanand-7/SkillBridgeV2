@@ -12,6 +12,8 @@ struct OnboardingNumber: View {
     @State private var phoneNumber: String = ""
     @State private var progress: CGFloat = 0.1
     
+    @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
+    
     let countryCodes = ["US +1", "FR +33", "UK +44", "IN +91", "DE +49"]
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,6 +36,7 @@ struct OnboardingNumber: View {
             HStack {
                 Button(action: {
                     // Handle back action
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -101,12 +104,7 @@ struct OnboardingNumber: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                // Increase progress by 1/10 of the screen width
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingCode()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -119,6 +117,7 @@ struct OnboardingNumber: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
     
     // Function to format phone number

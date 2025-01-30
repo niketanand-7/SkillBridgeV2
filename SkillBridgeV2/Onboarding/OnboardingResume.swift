@@ -9,9 +9,10 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OnboardingResume: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.7
     @State private var selectedFileName: String? = nil
     @State private var isDocumentPickerPresented: Bool = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,6 +34,7 @@ struct OnboardingResume: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -92,11 +94,7 @@ struct OnboardingResume: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingEmployment()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -112,6 +110,7 @@ struct OnboardingResume: View {
         .sheet(isPresented: $isDocumentPickerPresented) {
             DocumentPickerView(selectedFileName: $selectedFileName)
         }
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 

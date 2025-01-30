@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct OnboardingEducation: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.9
     @State private var education: String = ""
     @State private var certifications: String = ""
+    @Environment(\.dismiss) private var dismiss  // Used to navigate back
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,6 +33,7 @@ struct OnboardingEducation: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -89,11 +91,7 @@ struct OnboardingEducation: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingConsent()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -106,6 +104,7 @@ struct OnboardingEducation: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 

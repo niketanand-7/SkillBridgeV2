@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct OnboardingHRLogistics: View {
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.4
     @State private var selectedVeteranStatus: String = "Protected Veteran"
+    
+    @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
     
     let veteranStatuses = ["Protected Veteran", "Not a Veteran", "Prefer not to say"]
     var body: some View {
@@ -32,6 +34,7 @@ struct OnboardingHRLogistics: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -97,11 +100,7 @@ struct OnboardingHRLogistics: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingResume()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -114,6 +113,7 @@ struct OnboardingHRLogistics: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
     
     // Helper function for info links

@@ -1,18 +1,16 @@
 //
-//  OnboardingCode.swift
+//  OnboardingEmail.swift
 //  SkillBridgeV2
 //
-//  Created by Andrew Tran on 1/29/25.
+//  Created by Andrew Tran on 1/30/25.
 //
 
 import SwiftUI
 
-struct OnboardingCode: View {
-    @State private var code: String = ""
-    @State private var progress: CGFloat = 0.1
-    
-    @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
-    
+struct OnboardingEmail: View {
+    @State private var email: String = ""
+    @State private var progress: CGFloat = 0.0
+    @Environment(\.dismiss) private var dismiss  // Used to navigate back
     var body: some View {
         VStack(alignment: .leading) {
             // Progress Bar
@@ -32,7 +30,7 @@ struct OnboardingCode: View {
             // Back Button
             HStack {
                 Button(action: {
-                    dismiss()
+                    dismiss()  // Navigate back to the previous screen
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -43,38 +41,33 @@ struct OnboardingCode: View {
             .padding(.horizontal, 20)
             .padding(.top, 10)
             
-            // Title: "My code is"
-            Text("My code is")
+            // Title: "What's your email?"
+            Text("What's your email?")
                 .font(.system(size: 45))
                 .fontWeight(.bold)
                 .foregroundColor(.black)
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
             
-            // Code Input Fields
-            HStack(spacing: 10) {
-                ForEach(0..<6, id: \.self) { index in
-                    TextField("", text: .constant(""))
-                        .frame(width: 50)
-                        .padding(.vertical, 12)
-                        .multilineTextAlignment(.center)
-                        .background(Color.white)
-                        .overlay(
-                            Rectangle()
-                                .frame(height: 1)
-                                .foregroundColor(.gray),
-                            alignment: .bottom
-                        )
-                        .keyboardType(.numberPad)
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 20)
+            // Email Input Field
+            TextField("Enter email", text: $email)
+                .keyboardType(.emailAddress)
+                .autocapitalization(.none)
+                .padding(.vertical, 12)
+                .padding(.horizontal, 10)
+                .overlay(
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundColor(.gray),
+                    alignment: .bottom
+                )
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
             
             Spacer()
             
             // Continue Button
-            NavigationLink(destination: OnboardingDOB()) {
+            NavigationLink(destination: OnboardingName()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -92,5 +85,5 @@ struct OnboardingCode: View {
 }
 
 #Preview {
-    OnboardingCode()
+    OnboardingEmail()
 }

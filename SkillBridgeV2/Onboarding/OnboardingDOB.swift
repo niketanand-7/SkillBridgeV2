@@ -11,7 +11,9 @@ struct OnboardingDOB: View {
     @State private var day: String = ""
     @State private var month: String = ""
     @State private var year: String = ""
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = 0.2
+    
+    @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -33,6 +35,7 @@ struct OnboardingDOB: View {
             HStack {
                 Button(action: {
                     // Add back navigation functionality here
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
@@ -127,11 +130,7 @@ struct OnboardingDOB: View {
             Spacer()
             
             // Continue Button
-            Button(action: {
-                if progress < 1.0 {
-                    progress += 0.1
-                }
-            }) {
+            NavigationLink(destination: OnboardingIdentity()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)
@@ -144,6 +143,7 @@ struct OnboardingDOB: View {
             .padding(.bottom, 30)
         }
         .ignoresSafeArea(edges: .top)
+        .navigationBarBackButtonHidden(true)  // Hide the default back button
     }
 }
 
