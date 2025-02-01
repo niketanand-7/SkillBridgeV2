@@ -104,7 +104,7 @@ struct OnboardingNumber: View {
             Spacer()
             
             // Continue Button
-            NavigationLink(destination: OnboardingCode()) {
+            NavigationLink(destination: OnboardingDOB()) {
                 Text("CONTINUE")
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity)

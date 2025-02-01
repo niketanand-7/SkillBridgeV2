@@ -3,7 +3,7 @@ import SwiftUI
 struct OnboardingName: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
-    @State private var progress: CGFloat = 0.1
+    @State private var progress: CGFloat = 0.2
     
     @Environment(\.dismiss) private var dismiss  // Used to handle back navigation
 
